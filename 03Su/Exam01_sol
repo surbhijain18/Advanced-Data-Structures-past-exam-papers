@@ -1,0 +1,263 @@
+
+\documentstyle[11pt]{article}
+\pagestyle{empty}
+
+\setlength{\textwidth}{8in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\topmargin}{20 pt}
+\voffset=-1in
+\hoffset=-0.3in
+
+
+\begin{document}
+
+\begin{center}
+{\large \sf
+Sample solution for COP 5536/ AD 711R 
+Summer 2003
+}
+\end{center}
+
+
+
+\begin{enumerate}
+\item (15)
+ \begin{enumerate}
+  \item (10) Using the aggregate method, \\
+   First, determine an upper bound on the sum of the costs for the first $n$ months. \\
+   The sum of the actual monthly costs for the first $n$ months is
+   \begin{eqnarray*}
+& = & 80 \times \lfloor n/12 \rfloor + 40 \times (\lfloor n/3 \rfloor - \lfloor n/12 \rfloor) +
+20 \times (n - \lfloor n/3 \rfloor) \\
+& = & 40 \times \lfloor n/12 \rfloor + 20 \times \lfloor n/3 \rfloor + 20 \times n \\
+& \le & 40 \times n/12 + 20 \times n/3 + 20 \times n \\
+& = & 20 \cdot (1/6 + 1/3 + 1) \\
+& = & 20 \cdot (3/2) \\
+& = & 30 \cdot n \\
+   \end{eqnarray*}
+ 
+  \item (5) Using the amortized cost calculated in part(a), fill in the following
+    table.\vspace{2mm}
+\begin{table} [t,h]
+\centerline{
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Month & Jan. & Feb. & Mar. & Apr. & May & Jun. & Jul. & Aug. & Sep. & Oct. & Nov. & Dec.\\
+\hline
+\hline
+Actual cost & 20 & 20 & 40 & 20 & 20 & 40 & 20 & 20 & 40 & 20 & 20 & 80 \\
+\hline
+Amortized cost & 30 & 30 & 30 & 30 & 30 & 30 & 30 & 30 & 30 & 30 & 30 & 30 \\
+\hline
+Potential() & 10 & 20 & 10 & 20 & 30 & 20 & 30 & 40 & 30 & 40 & 50 & 0 \\
+\hline
+\end{tabular}}
+\vspace{2mm}
+\caption{\label{table 1} {Maintenance Contract}}
+\end{table}
+\end{enumerate}
+
+\item (12)
+ \begin{enumerate}
+  \item $Insert(25)$: 
+   \begin{verbatim}
+           (2,30)                        (2,30)
+         /        \                    /        \ 
+      same       (4,19)              same      (4,19)
+                /      \        ==>           /      \   
+             (5,15)   (6,16)              (5,25)    (6,16)
+             /    \                       /    \
+          (8,12)  (25)                 (8,12)  (15)
+   \end{verbatim}
+   \begin{verbatim} 
+              (2,30)                      
+            /        \                    
+     ==> same       (4,25)             
+                   /      \                                 
+                (5,19)   (6,16)              
+                /    \                            
+             (8,12)  (15)                
+   \end{verbatim}
+
+  \item $RemoveMin()$
+   \begin{verbatim}
+                          (2,30)
+                      /          \
+              (3,14)               (4,25) 
+            /        \             /    \
+        (4,12)      (3,11)     (5,19)   (6,16) 
+        /     \     /    \      /   \ 
+    (4,10) (5,11)(5,9)  (4,7)(8,12) (15)
+
+                       (15,30)
+                   /            \
+   removeMin (3,14)               (4,25) 
+   ==>      /        \             /    \
+        (4,12)      (3,11)     (5,19)   (6,16) 
+        /     \     /    \      /     
+    (4,10) (5,11)(5,9)  (4,7)(8,12)      
+
+                        (3,30)
+                   /            \
+             (15,14)              (4,25)      need to swap(15,14)
+   ==>      /        \             /    \
+        (4,12)      (3,11)     (5,19)   (6,16) 
+        /     \     /    \      /     
+    (4,10) (5,11)(5,9)  (4,7)(8,12)      
+ 
+                        (3,30)
+                   /            \
+             (3,15)               (4,25)   need to swap(14,11)
+   ==>      /        \             /    \
+        (4,12)      (14,11)    (5,19)   (6,16) 
+        /     \     /    \      /     
+    (4,10) (5,11)(5,9)  (4,7)(8,12)      
+ 
+                        (3,30)
+                   /            \
+             (3,15)               (4,25)     need to swap(11,7)
+   ==>      /        \             /    \
+        (4,12)      (4,14)     (5,19)   (6,16) 
+        /     \     /    \      /     
+    (4,10) (5,11)(5,9) (11,7)(8,12)      
+ 
+                        (3,30)
+                   /            \
+             (3,15)               (4,25)                        
+   ==>      /        \             /    \
+        (4,12)      (4,14)     (5,19)   (6,16) 
+        /     \     /    \      /     
+    (4,10) (5,11)(5,9) (7,11)(8,12)      
+ 
+   \end{verbatim}
+ \end{enumerate}
+
+\item (13)
+ \begin{enumerate}
+ \item (5) 
+   \begin{verbatim}
+               3                  3                    3(2)
+     swap    /   \       swap   /   \     swap       /      \
+     ==>    4     5      ==>   4     5    ==>      5(2)      4(1)
+                /   \              /   \          /     \
+               9     8            8     9       8(2)    9(1)
+              /     / \          / \   /       /    \    /
+             15    13 21        13 21 15    13(1) 21(1) 15(1)
+   \end{verbatim}
+ \item (8) Meld right subtree with smaller root and all of the other tree.
+   \begin{verbatim}
+
+     meld[ 6 ,      3 ]          meld[ 5,  6 ]            5
+          / \     /   \   ===>        /   / \    ===>   /   \
+         14 13   7     5             12  14 13         12    6
+                / \   /                                     / \
+               10  9 12                                    14 13
+
+
+     swap      5                   3
+     ===>    /   \      ===>    /     \
+            6    12            7       5
+           / \                / \    /   \ 
+          14 13              10  9  6     12
+                                   / \       
+                                  14 13      
+              
+     ===>      2                       
+           /       \                       
+          4         3                       
+        /   \    /     \                     
+       8     9  7       5                 
+            /  / \    /   \
+           17 10  9  6     12
+                    / \      
+                   14 13
+
+     swap        
+     ===>      2                       
+           /       \                       
+          3          4                       
+       /     \     /   \                     
+      7       5   8     9                 
+     / \    /   \      /   
+    10  9  6     12   17    
+          / \          
+         14 13          
+   \end{verbatim}
+\end{enumerate}
+
+
+\item (10)
+ \begin{enumerate}
+ \item (4) $Insert$ does not need pairwise combine.
+  \begin{verbatim}
+                           min
+                            |
+                            V
+          7 - 12 - 4 - 23 - 3 - 24 - 13 - 20 - 19 - 5
+  \end{verbatim}
+ \item (6) 
+  \begin{verbatim}
+   
+    meld(7,12)  7    ==>  meld(4,23)  7      4 
+                |                     |      |
+               12                    12     23
+
+       meld(7, 4)            4      meld(24,13)  13
+    ==>     |  |   ==>     / |   ==>             |
+           12 23          7  23                  24
+                          |
+                         12
+
+       meld(19,5)  5      meld(13, 5)         5
+    ==>            |  ==>       |  |        / | 
+                  19           24 19      13  19
+                                           |
+                                          24
+       meld(4,5)        4 
+    ==>             /  /  |
+                   5  7  23
+                 / |  |  
+               13 19 12
+                |
+               24
+
+                       min 
+                        |
+                        V                                          
+       meld(4,20)       4---------------20 
+    ==>             /  /  |
+                   5  7  23
+                 / |  |  
+               13 19 12
+                |
+               24
+  \end{verbatim}
+ \end{enumerate}
+\item (10) amortized analysis
+
+  $\bigcirc$ actual cost\\ 
+    - the actual cost of odd operation = 1 (corresponds to a leaf node)\\
+    - the actual cost of even operation =
+      the number of nodes connected by the edges labelled 0
+      without going through any edge labelled 1.\\
+
+    $\rightarrow$ So, we can mark all the corresponding nodes in a binary tree.
+
+       the number of nodes marked by the sequence of operations
+           < 2n-1 (since we discard the leaf node 0)\\
+
+   $\bullet$ the total number of nodes in a binary tree = 2n-1,
+    where n is the number of leaf nodes.
+
+    So, we can assign amortized cost 2 to each operation.
+
+   $\bullet$ Clearly, P(n) - P(0) > 0,
+    (note that we throw the leaf node 0 away, and assume that P(0) = 0 )
+    since the total cost of the sequence of operations can't
+    exceeds the total number of nodes in the binary tree
+\end{enumerate}
+\end{document}
+
+
+

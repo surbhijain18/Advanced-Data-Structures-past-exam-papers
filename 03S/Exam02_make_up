@@ -1,0 +1,117 @@
+
+\documentstyle[12pt]{article}
+\pagestyle{empty}
+
+\setlength{\textwidth}{6.8in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+% \setlength{\topmargin}{100 pt}
+\setlength{\topmargin}{50 pt}
+% \setlength{\textheight}{8in}
+\setlength{\textheight}{9in}
+\voffset=-1.2in
+\hoffset=-0.3in
+
+
+\begin{document}
+
+\begin{center}
+{\large \sf
+  \textbf{Instructor: Dr. Sartaj Sahni\\
+  Spring, 2003 \\  \bigskip \bigskip \bigskip \bigskip \bigskip\bigskip \bigskip }
+
+  Advanced Data Structures \\
+  (COP 5536 /AD 711R) \\
+  \textbf{Exam 2 (Make-up) \\  \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip}
+  CLOSED BOOK \\
+  75 Minutes } \\
+  \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip
+  \begin{tabular}{lcr}
+  Name: \hspace{3in}        \\ \cline{1-1} \bigskip \bigskip \\
+	  \end{tabular} \\
+  \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip \bigskip
+
+\end{center}
+
+{\bf NOTE:} \hfill \\ 
+ 1. {\bf For all problems, use only the algorithms discussed in class/text. }\\
+ 2. All answers will be graded on correctness, efficiency, clarity, elegance and other normal criteria that determine quality.\\  
+ 3. The points assigned to each question are provided in parentheses.
+
+
+\newpage
+
+\begin{enumerate}
+\item (14)
+  \begin{enumerate}
+   \item (6)For the following min Fibonacci heap,
+   assume that the $ChildCut$ field of each node is TRUE except node 7.
+   And the ChildCut of a root node is undefined.
+
+  \begin{verbatim}
+      min
+       |
+       V
+       1
+    / |   \      
+   4  5    7 (F)
+      |   / \            
+      6  8   10(T)          
+             |
+             12 (T)
+            /  \
+           13  14(T)
+                |
+               15 (T)
+  \end{verbatim}
+
+  Perform a $DecreaseKey$ operation by changing 14 to 9. On the resulting
+  Fibobacci heap, clearly label $ChildCut$ values (Draw the resulting 
+  $Fibonacci$ heap.)
+
+  \item (8)  Show that if we start with an empty Fibonacci heap and do not
+     perform cascading cuts, then it is possible for a sequence of Fibonacci
+     heap operations to result in degree-k min trees that have only k+1 nodes,
+     k $>=$1.
+ \end{enumerate}
+\newpage
+
+\item (8) Start with an empty $two$-$pass$ $min$ pairing heap,
+  \begin{enumerate}
+     \item (4) Insert the following sequence of keys: 5, 8, 4, 12, 3, 14, 20,
+             15, and 9 in this order. Show the pairing heap after each insert.
+     \item (4) Perform a $RemoveMin$ operation on the resulting min heap of
+             (a), showing each step.
+  \end{enumerate}
+\newpage
+
+\item (10) Recall that $inserting$ a node into an $AVL$ tree may require LL,
+    LR, RL, or RR rotations. Draw AVL trees in which inserting a node requires
+    an $RL$ rotation. Remember that there are $three$ cases for $RL$ rotations.
+    For each case, indicate a node to be inserted, perform an insert operation,
+    and draw the AVL tree following the insertion.
+\newpage
+
+\item (8) Draw a 2-3 tree with 11 elements (keys from 1 to 11) and height 3,
+    where all nodes at levels 2 and 3 are 2-nodes (the root is at level 1). 
+    $Delete$ the element in the rightmost node at level 2 and draw the 
+    resulting 2-3 tree. From the resulting tree, $delete$ the $min$ element.
+    Draw the new 2-3 tree.  
+\newpage
+
+\item (10) For red-black trees, 
+  \begin{enumerate}
+  \item (7)Construct a red-black tree by inserting the keys in the following 
+     sequence into an initially empty red-black tree : 4, 9, 1, 13, 11, 7,
+     and 5. \\
+     Use the $bottom-up$ algorithm. Show each step.
+  \item (3)For the resulting red-black tree of (a), perform the $Delete$
+      operation for key value 13, showing each step.
+  \end{enumerate}
+
+ \end{enumerate}
+\end{document}
+
+
+
+

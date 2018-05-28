@@ -1,0 +1,182 @@
+Sample solution
+Exam #3
+
+1.
+Search : 
+Traversing down the tree needs h reads which is the number of nodes
+(remember we always transfer the deletion in the midlle to the leaf).
+
+Combine and borrow:
+
+If the leaf is more than half full. just remove the element and write back the node. But, if the leaf is half full, we need either a borrowing from the sibling or combine and upward propagation. The borrowing involves only 3 nodes and there is no more work to be done.
+The combine, however, will propagate the problem up to root in the worst case.
+Since you need 2 levels of nodes to do combine, if we propagate all the way up to the root, and the root is combined, there only 2(h-1) more writes.
+But if the last operation is borrow after h-2 combines,
+we need another 4 accesses to do that.
+
+Thus, in the worst case,
+the deletion performs h+2(h-2) + 4 disk accesses.
+
+
+2.
+(a) 3   ->  5  insert 7   5   -->   7   insert 2   2
+   / \     /             / \       /             /   \
+  1   5   3             3   7     5             1     5
+         /             /         /                   /  \
+        1             1         3                   3    7
+                               /
+                              1
+  insert 6       insert 4
+       6               4
+     /   \           /   \
+    2     7         2     6
+   / \             / \   / \
+  1   5           1   3 5   7
+     /
+    3
+
+
+
+(b) 
+     Top_down Split: (correct answer) 
+
+
+     Botton-up:
+     Split(10, S, B)
+
+          S = empty          B
+                                16
+                                /
+                               15
+                               /
+                              14
+                              /
+                             13
+                             /
+                            12
+                            /
+                           11
+
+   Botton-up: (-2)
+
+
+
+     10            10                10
+      \     --->     \    ---->       \ 
+      11 	     13                15
+       \            /  \              /  \
+        12         11   14           13   16
+                    \               /  \
+                     12            11   14
+                                    \
+                                    12
+     Split(10, S, B)
+           S = empty          B 
+                                    15
+                                  /    \
+                                 13    16
+                                /  \
+                               11  14
+                                \
+                                12
+
+3.
+
+ (a)
+               1000                 1010
+    a:0:0100   ===>     a:0:0100    ===>          a:0:0100
+      /                    /                       /
+     a               b:1:1000                  b:1:1000
+                       /    \                   /     \
+                      a      b                 a     c:3:1010
+                                                     /     \  
+                                                    b       c  
+
+
+                 a:0:0100                        a:0:0100
+    0010          /              1010             /     
+    ===>     b:1:1000            ===>        b:1:1000    
+              /     \                         /       \
+         d:2:0010   c:3:1010             d:2:0010      c:3:1010  
+          /     \    /     \              /     \       /     \ 
+         d       a  b       c            d   e:4:0101  b       c 
+                                              /     \
+                                             a       e
+
+(b)
+
+          
+                 e:0:0101 
+delete 0100         /     
+    ===>        b:1:1000
+               /        \
+          d:2:0010      c:3:1010   
+          /       \    /        \ 
+         d         e  b          c
+
+4.
+  (a) f1(17) = 17 mod 13 = 4
+      f2(17) = 2*17 mod 13 = 8
+
+         --------------------------------------
+         0  0  0  0  1  0  0  0  1  0  0  0  0
+         --------------------------------------
+    bit  0  1  2  3  4  5  6  7  8  9 10 11 12
+
+
+  (b) f1(19) = 19 mod 13 = 6
+      f2(19) = 2*19 mod 13 = 12
+
+         --------------------------------------
+         0  0  0  0  1  0  1  0  1  0  0  0  1
+         --------------------------------------
+    bit  0  1  2  3  4  5  6  7  8  9 10 11 12
+
+  (c) examples
+      (1) k=4
+          f1(4) = 4 mod 13 = 4
+          f2(4) = 2*4 mod 13 = 8
+          Thus, the Bloom filter will respond "Maybe" but key "4" is not 
+          in the filter.
+
+      (2) k=6
+          f1(6) = 6 mod 13 = 6
+          f2(6) = 2*6 mod 13 = 12
+          Thus, the Bloom filter will respond "Maybe" but key "6" is not 
+          in the filter.
+
+
+5.
+  Assume we have N records with 2 keys, x and y.
+
+  A 2-D range tree is a binary tree using the range of x, while in each
+  node we keep a sorted list based on y. The tree always splits the
+  records in half, using a median x key value as the discriminator.
+
+  Preprocessing time P:
+
+    we need to build a sorted list on y, and another on x. Since we have
+    the sorted list on x, we can find the discriminator easily. And
+    since we have the sorted list on y, we can split the list in linear
+    time on each level ( there are logN levels overall ). So the
+    preprocessing time is:
+
+       P = NlogN + NlogN + N*logN = O(NlogN)
+
+  Space required S:
+
+    In each node we store an array of the records. At each level the
+    number of records is N. So the space required is:
+
+       S = N*logN = O(NlogN)
+
+  Query time Q:
+
+    Upon each query, we start at the root, decide which branch to
+    take by comparing the boundaries  of x with the discriminator. Once
+    we arrive a node, we use binary search on y in the array. Then
+    we report those records that fit the query. So the query time is:
+
+       Q = logN*logN + F = O((logN)^2 + F)
+
+    where F is the number of records reported.

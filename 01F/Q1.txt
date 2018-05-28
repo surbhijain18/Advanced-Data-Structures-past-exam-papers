@@ -1,0 +1,5 @@
+Question 1.
+a. Aggregate method.  There are  ((n( operations that each cost 2(k, and the other n -  ((n( operations each cost 1.  This yields a total cost of 2 * (( + 2 + 3 + ... +  ((n( ) + (n -  ((n( ) * 1 = 2 * ( ( ((n( )* ( ((n( + 1) / 2) + (n -  ((n( ) ( n +  ((n( + n -  ((n( = 2n.  So the amortized cost is 2n / n = 2. 
+b. Accounting method.  Charge each operation $2.  When k is not a perfect square, use $1 to pay for the operation and use the extra $1 for credit.  When k is a perfect square, the preceding (k - 1) - ((k - 1)2 = 2(k - 2 operations have each paid a credit of $1, which together with the $2 for the current operation yields exactly enough to pay for its 2(k actual cost. 
+c. Potential method.  Define ( = the number of operations since the most recent perfect square. That is, let  (( ( k - ( ((k( )2.  When k is not a perfect square, the amortized cost is c' = c + (k - (k-1 = 1 + ( k - ( ((k( )2 ) - ( (k - 1) - ( ((k( )2 ) = 2.  When k is a perfect square, the amortized cost is c' = c + (k - (k-1 = 2(k + ( k - ( (k )2 ) - ( (k - 1) - ((k - 1)2 ) = 2(k + 0 - ( 2(k - 2 ) = 2. 
+
