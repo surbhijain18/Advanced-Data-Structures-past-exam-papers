@@ -1,0 +1,165 @@
+Summer 2005
+   ((( Exam #3 sample solution )))
+
+
+1. B-tree
+a)
+        (   7     25    40  )  
+         /     |      |     \
+      (0,5) (10,15) (30,35) (45,60)
+
+b)
+       (     25   ,  40    ) 
+          /       |      \
+   (0,5,10,15) (30,35) (45,60)
+
+2.
+
+a)
+    S     B             S       B            S             B
+    a     g     -->     a       g   ---->    a             g
+   /       \           / \     / \          / \           / \
+  1         8         1   b   f   8        1   b         f   8
+                         /     \              / \       / \ 
+                        2       7            2   c     e   7
+                                                / \   / \ 
+                                               3   4 5   6
+
+
+------>           d
+            /           \
+           a             g
+          / \           / \
+         1   b         f   8
+            / \       / \
+           2   c     e   7
+              / \   / \
+             3   4 5   6
+
+b)                                         9
+  14   --->   10   ----->  8   -----> 5  ----->   5     -----> 9
+               \            \          \           \         /   \
+               14           10          8           9       5     10
+                              \          \         / \       \     \
+                              14         10       8   10      8    14
+                                           \           \
+                                           14          14
+     1
+   ------->   1
+               \
+                5
+                 \
+                  9
+                 / \
+                8   10
+                     \
+                     14
+
+
+3. Patricia
+
+
+  a:0:01000  ==>  a:0:01000  ==>  a:0:01000
+    /              /                /
+   a            b:1:10010        b:1:10010
+                 /    \           /      \
+                a      b       c:4:01011  b
+                                 /   \
+                                a     c
+
+  ==> a:0:01000   ==>          a:0:01000         
+       /                        /                                
+     b:1:10010                b:1:10010                     
+      /       \             /            \                     
+    d:2:00111  b       d:2:00111        e:3:10101       
+     /      \            /     \          /     \         
+    d      c:4:01011    d     c:4:01011  b       e
+             /     \            /     \
+            a       c          a      c
+
+
+
+  ==>         a:0:01000
+                /
+             b:1:10010
+          /             \                                           
+    d:2:00111           e:3:10101
+      /     \             /      \ 
+     d    c:4:01011      b       f:5:10100
+            /     \                /     \
+           a       c              f       e                          
+
+  o Node : (NodeLabel:BitNumber:Data)
+    - NodeLabel is used to show the link of pointer to node.
+
+(b) delete 10100 
+    The node has no self pointer.
+
+         	a:0:00100
+          	   /
+        	b:1:11000
+        	  /      \
+   	 c:2:01100  e:2:10000
+         /    \       /   \
+    d:4:00110  c     e     b
+      /    \
+     a      d
+
+  
+
+
+4.
+   (10,12) [0,24)                [0,24) (10,12)              [0,24) (3,4)     
+                     I (8,16)          /        I(3,4)             /
+                      ====> [0,12) (8,16)        ====>    [0,12) (10,12) 
+                                                                    \
+                                                                   (8,16) [6,12)
+
+
+                  [0,24) (3,4) 
+                        /     \
+   I(23,6) [0,12) (10,12)     (23,6) [12,24)
+   ====>              \   
+                     (8,16) [6,12)      
+
+
+                       [0,24) (3,4) 
+                            /       \
+   I(13,18)[0,12) (10,12)             (23,6) [12,24)
+   ====>            \                   / 
+                   (8,16) [6,12)    (13,18) [12,18)  
+
+
+
+                       [0,24) (3,4) 
+                            /         \
+   I(17,9) [0,12) (10,12)              (23,6) [12,24)
+   ====>            \                   / 
+                   (8,16) [6,12)    (17,9) [12,18)  
+                                     /    
+                                  (13,18) [12,15)
+
+
+5.
+ (a) Suppose that we have N records with 2 keys, x and y.
+
+  A 2-D range tree is a binary tree using the range of x, while in each
+  node we keep a sorted list based on y. The tree always splits the
+  records in half, using a median x key value as the discriminator.
+
+  
+  Searching (x,y) can be done as follows:
+
+  If x = x-value in the root, search sorted array at the root to search 
+     y=y-value. 
+  If x <= x-value in the root, recursively search left subtree
+  Else if x > x-value in the root, recursively search righ subtree
+  
+  (b)      
+     1. If root is a leaf, return.
+
+     2. Rotate the children of the root.
+
+        new  (NW, NE, SE, SW) = previous (NE, SE, SW, NW)
+
+     3. Recursively perform the rotation in the subtree of the root.
